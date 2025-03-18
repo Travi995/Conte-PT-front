@@ -1,14 +1,16 @@
 import { FloatLabel } from "primereact/floatlabel"
 import { InputText } from "primereact/inputtext"
-import { SyntheticEvent, useState } from "react"
+import { SyntheticEvent, useContext, useState } from "react"
 import { tpDataRegister } from "../../types/auth"
 import { Password } from "primereact/password"
 import { useNavigate } from "react-router-dom"
 import { getFromLocal, saveToLocal } from "../../helpers/saveToLocal"
 import { alertSystem } from "../../helpers/alertSystem"
+import { GlobalContext } from "../../context/globalContext"
 
 const FormRegister = ()=>{
     const [dataRegister,setDataRegister] = useState<tpDataRegister>({
+        id:Math.floor(Math.random() * 1000),
         email:'',
         nameStore:'',
         password:'',
@@ -22,6 +24,7 @@ const FormRegister = ()=>{
         }
     })
     const navigate = useNavigate()
+    const {dataUser,setDataUser} = useContext(GlobalContext)
 
     const handlerChange = (key:keyof tpDataRegister,value:string)=>{
         setDataRegister({
@@ -38,6 +41,7 @@ const FormRegister = ()=>{
         if(data){
             alertSystem({type:'error',message:"Oops, a user with this email already exists."})
         }else{
+            setDataUser({...dataUser,idUser:dataRegister.id})
             saveToLocal('users',JSON.stringify([...items,dataRegister]))
             alertSystem({type:'success',message:"Successfully registered"})
         }

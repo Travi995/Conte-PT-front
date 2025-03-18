@@ -8,6 +8,7 @@ type tpDataLogin = {
 
 
 type tpDataRegister ={
+    id:number
     email: string
     nameStore:string
     password: string

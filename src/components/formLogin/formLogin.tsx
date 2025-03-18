@@ -1,11 +1,12 @@
 import { FloatLabel } from "primereact/floatlabel"
 import { InputText } from "primereact/inputtext"
-import { SyntheticEvent, useState } from "react"
+import { SyntheticEvent, useContext, useState } from "react"
 import { tpDataLogin, tpDataRegister } from "../../types/auth"
 import { Password } from "primereact/password"
 import { useNavigate } from "react-router-dom"
 import { getFromLocal } from "../../helpers/saveToLocal"
 import { alertSystem } from "../../helpers/alertSystem"
+import { GlobalContext } from "../../context/globalContext"
 
 
 
@@ -16,6 +17,7 @@ const FormLogin = () => {
         email:'',
         password:''
     })
+    const {dataUser,setDataUser} = useContext(GlobalContext)
 
     const handlerChange = (key:keyof tpDataLogin,value:string)=>{
         setDataLogin({
@@ -32,6 +34,7 @@ const FormLogin = () => {
         const data:tpDataRegister =  (Array.from(items)).find((item:Object )=>item.email === dataRegister.email)
         
         if(data !==undefined && data.password === dataLogin.password){
+            setDataUser({...dataUser,idUser:data.id})
             alertSystem({type:'success',message:"Successfully Sign In"})
         }else{
             alertSystem({type:'error',message:"Oops, credentials Incorrects"})
