@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
     <GlobalContextProvider>
       <HashRouter>
         <PrimeReactProvider value={options}>
-        <App />
+          <App />
         </PrimeReactProvider>
       </HashRouter>
     </GlobalContextProvider>
