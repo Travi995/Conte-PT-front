@@ -3,6 +3,7 @@ import './App.css'
 import AuthView from './views/auth'
 import LoginView from './views/login/login'
 import { useEffect } from 'react'
+import RegisterView from './views/register/resgister'
 
 const App = () => {
   const navigate = useNavigate()
@@ -15,6 +16,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<AuthView />}>
         <Route path='login' element={<LoginView />} />
+        <Route path='register' element={<RegisterView />} />
       </Route>
 
     </Routes>

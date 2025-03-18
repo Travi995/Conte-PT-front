@@ -1,9 +1,11 @@
 import { FloatLabel } from "primereact/floatlabel"
 import { InputText } from "primereact/inputtext"
 import { SyntheticEvent, useState } from "react"
-import { tpDataLogin } from "../../types/auth"
+import { tpDataLogin, tpDataRegister } from "../../types/auth"
 import { Password } from "primereact/password"
 import { useNavigate } from "react-router-dom"
+import { getFromLocal } from "../../helpers/saveToLocal"
+import { alertSystem } from "../../helpers/alertSystem"
 
 
 
@@ -24,10 +26,19 @@ const FormLogin = () => {
 
     const handlerSubmit = (e: SyntheticEvent) => {
         e.preventDefault()
+
+        const items =  JSON.parse((getFromLocal('users')as string) ?? [])
+        //@ts-ignore
+        const data:tpDataRegister =  (Array.from(items)).find((item:Object )=>item.email === dataRegister.email)
+        
+        if(data !==undefined && data.password === dataLogin.password){
+            alertSystem({type:'success',message:"Successfully Sign In"})
+        }else{
+            alertSystem({type:'error',message:"Oops, credentials Incorrects"})
+        }   
     }
-
-
-    const hadnlerNavigate = ()=>{
+    
+    const handlerNavigate = ()=>{
         navigate('/register')
     }
 
@@ -42,12 +53,12 @@ const FormLogin = () => {
         <div className="mt-2">
             <FloatLabel>
                 <Password required value={dataLogin.password} feedback={false} onChange={(e) => handlerChange('password',e.target.value)}  />
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Password</label>
             </FloatLabel>
         </div>
         <div className="w-full flex pl-1 ">
             <span className="text-xs ">You already have an account?</span>
-            <button onClick={hadnlerNavigate} className="ml-2 text-xs  dashed text-blue-500 hover:cursor-pointer hover:text-blue-700 transition-all duration-200 uppercase rounded">register</button>
+            <button onClick={handlerNavigate} className="ml-2 text-xs  dashed text-blue-500 hover:cursor-pointer hover:text-blue-700 transition-all duration-200 uppercase rounded">register</button>
         </div>
         <div className="flex justify-center mt-5">
             <button className="bg-blue-500 hover:cursor-pointer transition-all duration-150 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign In</button>

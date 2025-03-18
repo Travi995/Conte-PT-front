@@ -1,3 +1,4 @@
+import { tpStore } from "./store"
 
 
 type tpDataLogin = {
@@ -6,6 +7,16 @@ type tpDataLogin = {
 }
 
 
+type tpDataRegister ={
+    email: string
+    nameStore:string
+    password: string
+    store:tpStore
+}
+
+
+
 export type {
-    tpDataLogin
+    tpDataLogin,
+    tpDataRegister
 }
