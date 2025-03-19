@@ -9,6 +9,7 @@ export type tpStore = {
 }
 
 export type tpProducts = {
+    id:number
     codigo:number
     name:string
     price:number

@@ -7,6 +7,7 @@ import RegisterView from './views/register/resgister'
 import StoreView from './views/store/store'
 import AddStoreView from './views/addStore/addStore'
 import PreviewStore from './views/previewStore/previewStore'
+import ListProducts from './views/listProducts/listProducts'
 
 const App = () => {
   const navigate = useNavigate()
@@ -26,6 +27,7 @@ const App = () => {
       <Route path='store' element={<StoreView />}>
         <Route path='addStore' element={<AddStoreView />} />
         <Route path='previewStore' element={<PreviewStore />} />
+        <Route path='listProducts' element={<ListProducts />} />
       </Route>
 
     </Routes>
