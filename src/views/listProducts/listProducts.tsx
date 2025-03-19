@@ -5,6 +5,7 @@ import { tpProducts } from "../../types/store"
 import FormAddProduct from "../../components/formAddProduct/formAddProduct"
 import { getFromLocal, saveToLocal } from "../../helpers/saveToLocal"
 import BoxProduct from "../../components/BoxPorduct/BoxProduct"
+import FilterProducts from "../../components/filterProducts/filterProducts"
 
 const ListProducts = ()=>{
     const {showModal,setShowModal,dataUser} = useContext(GlobalContext)
@@ -36,8 +37,8 @@ const ListProducts = ()=>{
 
 
     return <div className="w-full h-full bg-amber-100 flex flex-col">
-            <section className="mt-2">
-
+            <section className="w-full flex justify-center">
+                <FilterProducts data={dataProducts} onSearch={(filteredData)=>{setDataProducts(filteredData)}} />
             </section>
             <section className="mt-2">
                 {dataProducts.map((item,index)=><BoxProduct key={index} create={item.create} delete={()=>{handlerDelete(item.id)}} name={item.name} price={item.price} stock={item.stock} description={item.description} />)}
